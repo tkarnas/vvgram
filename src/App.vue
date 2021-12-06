@@ -23,6 +23,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form
+          id="search"
+          class="form-inline my-2 my-lg-0 flex-grow-1 d-flex justify-content-center"
+        >
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Pretraga"
+            aria-label="Search"
+            v-model="searchTerm"
+          />
+        </form>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
@@ -34,14 +46,6 @@
             <router-link class="nav-link" to="/signup">Signup</router-link>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Pretraga"
-            aria-label="Search"
-          />
-        </form>
       </div>
     </nav>
     <router-view />
@@ -74,4 +78,12 @@
 }
 </style>
 
-<script></script>
+<script>
+import store from "@/store.js";
+
+export default {
+  data() {
+    return store;
+  },
+};
+</script>
