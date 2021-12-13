@@ -36,14 +36,14 @@
           />
         </form>
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/">Home</router-link>
-          </li>
-          <li class="nav-item">
+          <li v-if="!currentUser" class="nav-item">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="!currentUser" class="nav-item">
             <router-link class="nav-link" to="/signup">Signup</router-link>
+          </li>
+          <li v-if="currentUser" class="nav-item">
+            <a href="#" @click.prevent="logout()" class="nav-link">Logout</a>
           </li>
         </ul>
       </div>
@@ -80,10 +80,35 @@
 
 <script>
 import store from "@/store.js";
+import { firebase } from "@/firebase.js";
+import router from "@/router";
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("*****", user.email);
+    store.currentUser = user.email;
+  } else {
+    console.log("No user");
+    store.currentUser = null;
+    if (router.name !== "Login") {
+      router.push({ name: "Login" });
+    }
+  }
+});
 
 export default {
   data() {
     return store;
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: "Login" });
+        });
+    },
   },
 };
 </script>

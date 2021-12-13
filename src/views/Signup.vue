@@ -7,27 +7,6 @@
         <div class="col-sm">
           <form>
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                placeholder="Marko"
-              />
-              <label for="lastName">Last Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastName"
-                placeholder="Marić"
-              />
-              <label for="dateOfBirth">Date of birth</label>
-              <input
-                type="date"
-                class="form-control"
-                id="dateOfBirth"
-                placeholder="Marić"
-              />
               <label for="exampleInputEmail1">Email address</label>
               <input
                 type="email"
@@ -35,6 +14,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
+                v-model="username"
               />
               <small id="emailHelp" class="form-text text-muted"
                 >We'll never share your email with anyone else.</small
@@ -47,9 +27,22 @@
                 class="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
+                v-model="password"
               />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+              <label for="exampleInputPassword2"> Repeat password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword2"
+                placeholder="Password"
+                v-model="passwordRepeat"
+              />
+            </div>
+            <button type="button" @click="signup()" class="btn btn-primary">
+              Submit
+            </button>
           </form>
         </div>
         <div class="col-sm"></div>
@@ -63,3 +56,31 @@ button {
   color: white;
 }
 </style>
+
+<script>
+import { firebase } from "@/firebase.js";
+
+export default {
+  name: "Signuo",
+  data() {
+    return {
+      username: "",
+      password: "",
+      passwordRepeat: "",
+    };
+  },
+  methods: {
+    signup() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.username, this.password)
+        .then(function () {
+          console.log("Uspješna registracija");
+        })
+        .catch(function (error) {
+          console.error("Došlo je do pogreške!", error);
+        });
+    },
+  },
+};
+</script>

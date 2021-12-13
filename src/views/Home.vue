@@ -4,7 +4,7 @@
     <div class="col-7">
       <vvgram-card v-for="card in filteredCards" :key="card.id" :info="card" />
     </div>
-    <div class="col-3"></div>
+    <div class="col-3">{{ searchTerm }}</div>
   </div>
 </template>
 

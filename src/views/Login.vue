@@ -14,6 +14,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
+                v-model="username"
               />
               <small id="emailHelp" class="form-text text-muted"
                 >We'll never share your email with anyone else.</small
@@ -26,9 +27,12 @@
                 class="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
+                v-model="password"
               />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" @click="login()" class="btn btn-primary">
+              Submit
+            </button>
           </form>
         </div>
         <div class="col-sm"></div>
@@ -42,3 +46,32 @@ button {
   color: white;
 }
 </style>
+
+<script>
+import { firebase } from "@/firebase.js";
+
+export default {
+  name: "login",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      console.log("login..." + this.username);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.username, this.password)
+        .then((result) => {
+          console.log("uspješna proijava", result);
+          this.$router.replace({ name: "Home" });
+        })
+        .catch(function (e) {
+          console.error("greška", e);
+        });
+    },
+  },
+};
+</script>
