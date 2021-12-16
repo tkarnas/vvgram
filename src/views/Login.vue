@@ -66,7 +66,6 @@ export default {
         .signInWithEmailAndPassword(this.username, this.password)
         .then((result) => {
           console.log("uspješna proijava", result);
-          this.$router.replace({ name: "Home" });
         })
         .catch(function (e) {
           console.error("greška", e);
