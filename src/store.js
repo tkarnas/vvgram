@@ -2,7 +2,8 @@ export default {
   authenticated: false,
   userEmail: "mail@gmail.com",
   userName: "Tomislav Karnas",
-  cards: [
+  cards: [],
+  /* cards: [
     {
       title: "First post",
       time: "an hour ago",
@@ -21,7 +22,7 @@ export default {
       img: "https://picsum.photos/id/3/400/400",
       author: "Tomislav Karnas",
     },
-  ],
+  ], */
   searchTerm: "",
   currentUser: null,
 };
